@@ -11,9 +11,11 @@ export class UsersService {
     private userRepository: Repository<User>,
   ) {}
 
-  create(dto: CreateUserDto) {
-    const user = this.userRepository.create(dto);
+  async findOne(phoneNumber: string): Promise<User | null> {
+    return this.userRepository.findOneBy({ phoneNumber: phoneNumber });
+  }
 
-    return user;
+  create(dto: CreateUserDto): User {
+    return this.userRepository.create(dto);
   }
 }
