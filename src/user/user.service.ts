@@ -15,9 +15,9 @@ export class UsersService {
     return this.userRepository.findOneBy({ phoneNumber: phoneNumber });
   }
 
-  create(dto: CreateUserDto): User {
+  async create(dto: CreateUserDto): Promise<User> {
     const user = this.userRepository.create(dto);
-    this.userRepository.save(user);
+    await this.userRepository.save(user);
 
     return user;
   }
