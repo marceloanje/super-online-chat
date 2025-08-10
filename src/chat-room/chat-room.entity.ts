@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, Generated } from 'typeorm';
 
 @Entity('chat_rooms')
 export class ChatRoom {
@@ -6,5 +6,6 @@ export class ChatRoom {
   id: string;
 
   @Column()
+  @Generated('uuid')
   key: string;
 }
