@@ -10,6 +10,10 @@ export class ChatRoomsService {
     private chatRoomRepository: Repository<ChatRoom>,
   ) {}
 
+  async findOne(key: string): Promise<ChatRoom | null> {
+    return this.chatRoomRepository.findOneBy({ key: key });
+  }
+
   async create(): Promise<ChatRoom> {
     const chatRoom = this.chatRoomRepository.create();
     await this.chatRoomRepository.save(chatRoom);
