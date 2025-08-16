@@ -8,10 +8,10 @@ export class UsersController {
   constructor(private usersService: UsersService) {}
 
   @Get(':phoneNumber')
-  async findOne(
+  async getUserByPhoneNumber(
     @Param('phoneNumber') phoneNumber: string,
   ): Promise<User | null> {
-    return this.usersService.findOne(phoneNumber);
+    return this.usersService.getUserByPhoneNumber(phoneNumber);
   }
 
   @Post()

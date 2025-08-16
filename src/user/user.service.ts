@@ -11,7 +11,7 @@ export class UsersService {
     private userRepository: Repository<User>,
   ) {}
 
-  async findOne(phoneNumber: string): Promise<User | null> {
+  async getUserByPhoneNumber(phoneNumber: string): Promise<User | null> {
     return this.userRepository.findOneBy({ phoneNumber: phoneNumber });
   }
 
