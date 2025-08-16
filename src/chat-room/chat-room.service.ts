@@ -10,7 +10,7 @@ export class ChatRoomsService {
     private chatRoomRepository: Repository<ChatRoom>,
   ) {}
 
-  async findOne(key: string): Promise<ChatRoom | null> {
+  async getChatRoomByKey(key: string): Promise<ChatRoom | null> {
     return this.chatRoomRepository.findOneBy({ key: key });
   }
 

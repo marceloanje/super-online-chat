@@ -7,8 +7,8 @@ export class ChatRoomsController {
   constructor(private chatRoomsService: ChatRoomsService) {}
 
   @Get(':key')
-  async findOne(@Param('key') key: string): Promise<ChatRoom | null> {
-    return this.chatRoomsService.findOne(key);
+  async getChatRoomByKey(@Param('key') key: string): Promise<ChatRoom | null> {
+    return this.chatRoomsService.getChatRoomByKey(key);
   }
 
   @Post()
