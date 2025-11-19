@@ -11,6 +11,7 @@ import { Server, Socket } from 'socket.io';
 import { ChatRoomsService } from './chat-room.service';
 import { JoinRoomDto } from './dto/join-room.dto';
 import { SendMessageDto } from './dto/send-message.dto';
+import { MessagesService } from 'src/messages/messages.service';
 
 @WebSocketGateway({
   cors: {
@@ -22,7 +23,10 @@ export class ChatRoomGateway
 {
   @WebSocketServer() server: Server;
 
-  constructor(private readonly chatRoomService: ChatRoomsService) {}
+  constructor(
+    private readonly chatRoomService: ChatRoomsService,
+    private readonly messagesService: MessagesService,
+  ) {}
 
   handleConnection(client: Socket) {
     console.log(`Client connected: ${client.id}`);
@@ -47,13 +51,17 @@ export class ChatRoomGateway
   }
 
   @SubscribeMessage('sendMessage')
-  handleSendMessage(
+  async handleSendMessage(
     @ConnectedSocket() client: Socket,
     @MessageBody() data: SendMessageDto,
   ) {
     const { roomId, userId, message } = data;
 
-    // Save message to database
+    await this.messagesService.create({
+      chatRoomId: roomId,
+      userId,
+      content: message,
+    });
 
     this.server.to(roomId).emit('newMessage', {
       userId,
