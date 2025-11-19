@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Message } from './messages.entity';
 import { Repository } from 'typeorm';
+import { CreateMessageDto } from './dto/create-message.dto';
 
 @Injectable()
 export class MessagesService {
@@ -15,5 +16,9 @@ export class MessagesService {
       where: { chatRoomId },
       order: { createdAt: 'ASC' },
     });
+  }
+
+  async create(createMessageDto: CreateMessageDto): Promise<Message> {
+    return await this.messageRepository.save(createMessageDto);
   }
 }
